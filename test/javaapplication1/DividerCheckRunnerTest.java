@@ -3,9 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package javaapplication1;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
@@ -16,22 +17,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class DividerCheckRunnerTest {
-    
+
     public DividerCheckRunnerTest() {
     }
-    
+
     @BeforeClass
     public static void setUpClass() {
+
     }
-    
+
     @AfterClass
     public static void tearDownClass() {
     }
-    
+
     @Before
     public void setUp() {
     }
-    
+
     @After
     public void tearDown() {
     }
@@ -44,9 +46,18 @@ public class DividerCheckRunnerTest {
         System.out.println("runDivisionCheck 2 arguments");
         int startNumber = 1;
         int endNumber = 5;
+
         String expResult = "1\n2\nfizz \n4\nbuzz \n";
-        String result = DividerCheckRunner.runDivisionCheck(startNumber, endNumber);
-        assertEquals(expResult, result);
+        PrintStream oldOut = System.out;
+
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            DividerCheckRunner.runDivisionCheck(startNumber, endNumber);
+            assertEquals(expResult, out.toString());
+        } finally {
+            System.setOut(oldOut);
+        }
     }
 
     /**
@@ -60,8 +71,16 @@ public class DividerCheckRunnerTest {
         String divisibleByThreeOutput = "fizz";
         String divisibleByFiveOutput = "buzz";
         String expResult = "1\n2\nfizz \n4\nbuzz \n";
-        String result = DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisibleByThreeOutput, divisibleByFiveOutput);
-        assertEquals(expResult, result);
+        PrintStream oldOut = System.out;
+
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisibleByThreeOutput, divisibleByFiveOutput);
+            assertEquals(expResult, out.toString());
+        } finally {
+            System.setOut(oldOut);
+        }
     }
 
     /**
@@ -77,10 +96,18 @@ public class DividerCheckRunnerTest {
         divisionData.add(new DividerOutputObject(5, "buzz"));
         divisionData.add(new DividerOutputObject(10, "bag"));
         String expResult = "1\n2\nfizz \n4\nbuzz \nfizz \n7\n8\nfizz \nbuzz bag \n";
-        String result = DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisionData);
-        assertEquals(expResult, result);
+        PrintStream oldOut = System.out;
+
+        try {
+            ByteArrayOutputStream out = new ByteArrayOutputStream();
+            System.setOut(new PrintStream(out));
+            DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisionData);
+            assertEquals(expResult, out.toString());
+        } finally {
+            System.setOut(oldOut);
+        }
     }
-    
+
     @Test
     public void testArgumentsCheck() {
         System.out.println("runDivisionCheck argument validation");
@@ -90,13 +117,13 @@ public class DividerCheckRunnerTest {
         boolean expResult = false;
         boolean result = true;
         try {
-        DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisionData);
+            DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisionData);
         } catch (IllegalArgumentException ex) {
             expResult = true;
         }
         assertEquals(expResult, result);
     }
-    
+
     @Test
     public void testArgumentsCheckNegativeNumbers() {
         System.out.println("runDivisionCheck argument validation negative numbers");
@@ -106,7 +133,7 @@ public class DividerCheckRunnerTest {
         boolean expResult = false;
         boolean result = true;
         try {
-        DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisionData);
+            DividerCheckRunner.runDivisionCheck(startNumber, endNumber, divisionData);
         } catch (IllegalArgumentException ex) {
             expResult = true;
         }

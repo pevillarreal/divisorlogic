@@ -18,7 +18,6 @@ public class JavaApplication1 {
         dividerObjects.add(new DividerOutputObject(3, "fizz"));
         dividerObjects.add(new DividerOutputObject(5, "buzz"));
         dividerObjects.add(new DividerOutputObject(10, "bag"));
-        String runDivisionCheck = DividerCheckRunner.runDivisionCheck(1, 100, dividerObjects);
-        System.out.println(runDivisionCheck);
+        DividerCheckRunner.runDivisionCheck(1, 100, dividerObjects);
     }
 }

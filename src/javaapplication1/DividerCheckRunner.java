@@ -7,6 +7,7 @@ package javaapplication1;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class DividerCheckRunner {
@@ -14,42 +15,61 @@ public class DividerCheckRunner {
     private DividerCheckRunner() {
     }
 
-    public static String runDivisionCheck(int startNumber, int endNumber) {
-        return runDivisionCheck(startNumber, endNumber, "fizz", "buzz");
+    public static void runDivisionCheck(int startNumber, int endNumber) {
+        runDivisionCheck(startNumber, endNumber, "fizz", "buzz");
     }
 
-    public static String runDivisionCheck(int startNumber, int endNumber, String divisibleByThreeOutput,
+    public static void runDivisionCheck(int startNumber, int endNumber, String divisibleByThreeOutput,
             String divisibleByFiveOutput) {
         List<DividerOutputObject> divisionData = new ArrayList<DividerOutputObject>();
         divisionData.add(new DividerOutputObject(3, divisibleByThreeOutput));
         divisionData.add(new DividerOutputObject(5, divisibleByFiveOutput));
-        return runDivisionCheck(startNumber, endNumber, divisionData);
+        runDivisionCheck(startNumber, endNumber, divisionData);
     }
 
-    public static String runDivisionCheck(int startNumber, int endNumber, List<DividerOutputObject> divisionData) {
-        if (startNumber < 0 || endNumber < 0 || startNumber > endNumber) {
-            throw new IllegalArgumentException();
+    public static void runDivisionCheck(int startNumber, int endNumber, List<DividerOutputObject> divisionData) {
+        if (startNumber < 0 || endNumber < 0) {
+            throw new IllegalArgumentException("startNumber and endNumber cannot be zero");
+        }
+
+        if (startNumber > endNumber) {
+            throw new IllegalArgumentException("startNumber cannot be greater than end number");
         }
 
         Collections.sort(divisionData);
-        StringBuilder sb = new StringBuilder();
-
         for (int i = startNumber; i <= endNumber; i++) {
             boolean matched = false;
             for (DividerOutputObject dividerOutputObject : divisionData) {
-                if (i % dividerOutputObject.getDivider() == 0) {
-                    sb.append(dividerOutputObject.getOutput());
-                    sb.append(" ");
+                if (dividerOutputObject.isDivisor(i)) {
+                    System.out.print(dividerOutputObject.getOutput());
+                    System.out.print(" ");
                     matched = true;
                 }
             }
             if (!matched) {
-                sb.append(i);
+                System.out.print(i);
             }
 
-            sb.append("\n");
+            System.out.print("\n");
         }
 
-        return sb.toString();
+    }
+
+    public class DividierCheckIterator implements Iterator<String> {
+
+        @Override
+        public boolean hasNext() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public String next() {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Not supported by this iterator.");
+        }
     }
 }

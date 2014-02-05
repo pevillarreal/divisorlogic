@@ -34,18 +34,6 @@ public class DividerOutputObjectTest {
     }
 
     /**
-     * Test of getDivider method, of class DividerOutputObject.
-     */
-    @Test
-    public void testGetDivider() {
-        System.out.println("getDivider");
-        DividerOutputObject instance = new DividerOutputObject(1, "one");
-        int expResult = 1;
-        int result = instance.getDivider();
-        assertEquals(expResult, result);
-    }
-
-    /**
      * Test of getOutput method, of class DividerOutputObject.
      */
     @Test
@@ -63,11 +51,21 @@ public class DividerOutputObjectTest {
     @Test
     public void testCompareTo() {
         System.out.println("compareTo");
-        DividerOutputObject o = new DividerOutputObject(0, "zero");
+        DividerOutputObject o = new DividerOutputObject(1, "one");
         DividerOutputObject instance = new DividerOutputObject(5, "five");
         int expResult = 1;
         int result = instance.compareTo(o);
         assertEquals(expResult, result);
     }
 
+    /**
+     * Test of compareTo method, of class DividerOutputObject.
+     */
+    @Test
+    public void testIsDivisor() {
+        System.out.println("isDivisor");
+        DividerOutputObject o = new DividerOutputObject(2, "two");        
+        boolean isDivisor = o.isDivisor(2);
+        assertTrue(isDivisor);
+    }
 }

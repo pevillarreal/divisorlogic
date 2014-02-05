@@ -11,12 +11,11 @@ public class DividerOutputObject implements Comparable<DividerOutputObject> {
     private String output;
 
     public DividerOutputObject(int divider, String output) {
+        if (divider <= 0) {
+            throw new IllegalArgumentException("Divider must positive and greater than 0");
+        }
         this.divider = divider;
         this.output = output;
-    }
-
-    public int getDivider() {
-        return divider;
     }
 
     public String getOutput() {
@@ -33,6 +32,10 @@ public class DividerOutputObject implements Comparable<DividerOutputObject> {
         }
         
         return 0;
+    }
+
+    boolean isDivisor(int i) {
+        return i % divider == 0;
     }
 
 }
